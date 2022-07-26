@@ -22,7 +22,7 @@ ol, ul {
     border: 1px solid #999;
     float: left;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 34px;
     height: 34px;
     margin-right: -1px;
@@ -30,6 +30,14 @@ ol, ul {
     padding: 0;
     text-align: center;
     width: 34px;
+}
+
+.square.selected {
+    font-weight: bold;
+}
+
+.square.selected.win{
+    background: red;
 }
 
 .square:focus {
@@ -47,4 +55,8 @@ ol, ul {
 
 .game-info {
     margin-left: 20px;
+}
+
+.history-move {
+    margin-left: 5px;
 }
