@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Game />);
-
-// ========================================
-
-function calculateWinner(squares) {
+const calculateWinner = (squares) => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -18,25 +13,24 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+  for (const [a, b, c] of lines) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
   return null;
-}
+};
 
-function Square(props) {
+const Square = (props) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
-}
+};
 
-function Board(props) {
-  function renderSquare(i) {
+const Board = (props) => {
+  const renderSquare = (i) => {
     return (
       <Square
         value={props.squares[i]}
@@ -44,7 +38,7 @@ function Board(props) {
         key={i}
       />
     );
-  }
+  };
   const boardKeys = [
     [0, 1, 2],
     [3, 4, 5],
@@ -52,13 +46,13 @@ function Board(props) {
   ];
   const mapBoard = boardKeys.map((value, index) => (
     <div className="board-row" key={index}>
-      {value.map((i) => renderSquare(i))}
+      {value.map(renderSquare)}
     </div>
   ));
   return <div>{mapBoard}</div>;
-}
+};
 
-function Game() {
+const Game = () => {
   const [history, setHistory] = useState([
     {
       squares: Array(9).fill(null),
@@ -67,7 +61,7 @@ function Game() {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
-  function handleClick(i) {
+  const handleClick = (i) => {
     const _history = history.slice(0, stepNumber + 1);
     const current = _history[_history.length - 1];
     const squares = current.squares.slice();
@@ -82,12 +76,12 @@ function Game() {
     );
     setStepNumber(_history.length);
     setXIsNext(!xIsNext);
-  }
+  };
 
-  function jumpTo(step) {
+  const jumpTo = (step) => {
     setStepNumber(step);
     setXIsNext(step % 2 === 0);
-  }
+  };
 
   const _history = history;
   const current = _history[stepNumber];
@@ -119,4 +113,9 @@ function Game() {
       </div>
     </div>
   );
-}
+};
+
+// ========================================
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Game />);
